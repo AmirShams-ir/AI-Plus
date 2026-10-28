@@ -8,7 +8,7 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAmirShams-ir%2FAI-Plus&demo-title=AI%20Plus%20Webapp)
 
-Example: https://ai-plus-web.vercell.app
+Example: https://ai-plus-web.vercel.app
 
 > It may not respond when the quota is used up, it is recommended to deploy it yourself
 
