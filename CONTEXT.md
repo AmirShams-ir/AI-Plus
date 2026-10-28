@@ -1,0 +1,57 @@
+# Cloudflare AI Web
+
+This application presents a unified catalog of AI models and routes each selected model to its inference provider.
+
+## Language
+
+**Model Catalog**:
+The complete set of models the application currently presents to users, combining Cloudflare Models with External Models.
+_Avoid_: Model list, provider list
+
+**Cloudflare Model**:
+A Workers AI model whose availability and descriptive metadata come from the current Cloudflare account's remote catalog.
+_Avoid_: Built-in model, local model, allowlisted model
+
+**Model Brand**:
+The publishing organization identified by a Cloudflare Model's namespace, used to group models in the catalog.
+_Avoid_: Provider, author, vendor
+
+**External Model**:
+A model served by a provider outside Workers AI and registered explicitly by the application.
+_Avoid_: Custom model, fallback model
+
+**Catalog Snapshot**:
+The most recent successfully retrieved set of Cloudflare Models, retained temporarily so a catalog refresh failure does not remove known models.
+_Avoid_: Static model list, allowlist
+
+**Capability Signal**:
+Remote model metadata that indicates whether a Cloudflare Model can accept a particular interaction, such as image input or reasoning output. An absent or ambiguous signal means the capability is unavailable.
+_Avoid_: Capability guarantee, local override
+
+**Experimental Model**:
+A Cloudflare Model marked experimental by the remote catalog and presented with that status visible to users.
+_Avoid_: Beta model, community model
+
+**Conversation History**:
+The locally retained sequence of messages belonging to a chat session, preserved across application upgrades.
+_Avoid_: Chat records, message cache, chat log
+
+**Model Context**:
+The bounded subset of a Conversation History supplied to a model for one inference request. Images in it may be downscaled copies of the stored attachments.
+_Avoid_: Full history, chat records, request history
+
+**Context Usage**:
+The share of a model's context window occupied by the latest inference request, as reported by the model itself. It is independent of the Model Context, which is selected by the application before the request.
+_Avoid_: Model Context, context budget, token count
+
+**Retry**:
+Producing a new response for the latest prompt that replaces the latest response in its Conversation History or Image History once the new response succeeds. Earlier responses cannot be retried.
+_Avoid_: Regenerate, rerun, redo
+
+**Image History**:
+The locally retained sequence of prompts and generated images from the image generation page, preserved across application upgrades. It is not a Conversation History and is never supplied to a model as context.
+_Avoid_: Image session, image chat, gallery
+
+**Access Session**:
+A time-bounded proof that a visitor supplied the deployment access password and may use protected inference APIs.
+_Avoid_: Password cookie, user account, login session

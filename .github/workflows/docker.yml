@@ -1,0 +1,30 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  docker:
+    # Builds each platform on a native runner (arm64 on ubuntu-24.04-arm) and
+    # merges them into one multi-arch manifest.
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      output: image
+      push: true
+      platforms: linux/amd64,linux/arm64
+      meta-images: jazee6/cloudflare-ai-web
+      meta-tags: |
+        type=raw,value=latest
+    secrets:
+      registry-auths: |
+        - registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
